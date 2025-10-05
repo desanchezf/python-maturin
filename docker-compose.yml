@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  python-maturin:
+    build: .
+    container_name: python-maturin-dev
+    volumes:
+      - .:/app
+      - /app/target  # Cache para compilaciones Rust
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+    command: bash
+    environment:
+      - RUST_BACKTRACE=1
+      - MATURIN_PEP517_ARGS=--release
